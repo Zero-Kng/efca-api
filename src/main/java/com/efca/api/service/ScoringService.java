@@ -86,8 +86,4 @@ public class ScoringService {
     private double round1(double value) {
         return Math.round(value * 10.0) / 10.0;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4

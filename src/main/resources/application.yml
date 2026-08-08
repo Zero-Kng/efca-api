@@ -1,13 +1,6 @@
 server:
-<<<<<<< HEAD
-  port: 8080
-=======
   port: ${PORT:8080}
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
   tomcat:
-    # Corpo de requisição pequeno de propósito: essa API só recebe até 16
-    # respostas (id + nota 1-5). 64KB já é generoso; corta payload-bomb cedo,
-    # antes mesmo do Jackson tentar desserializar.
     max-swallow-size: 64KB
     max-http-form-post-size: 64KB
 
@@ -15,13 +8,9 @@ spring:
   application:
     name: efca-api
   jackson:
-    # Se o front mandar um campo desconhecido no JSON, falha em vez de
-    # ignorar silenciosamente — evita mascarar bug ou payload malicioso.
     deserialization:
       fail-on-unknown-properties: true
 
-# Origem(ns) do front autorizadas a chamar essa API.
-# Nunca usar "*" aqui — configure via variável de ambiente em cada ambiente.
 efca:
   cors:
     allowed-origins: ${EFCA_ALLOWED_ORIGINS:http://localhost:5500,http://127.0.0.1:5500}
@@ -30,7 +19,4 @@ management:
   endpoints:
     web:
       exposure:
-        # Não exponha actuator inteiro publicamente. Health é o mínimo útil
-        # pra load balancer/k8s; o resto (env, beans, etc.) vaza informação
-        # interna da aplicação.
         include: health

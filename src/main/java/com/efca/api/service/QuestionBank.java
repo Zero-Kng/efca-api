@@ -12,30 +12,21 @@ import java.util.stream.Collectors;
 public class QuestionBank {
 
     private static final List<Question> QUESTIONS = List.of(
-        new Question("q1",  Domain.HIPERFAGICO,   "Geralmente como até me sentir cheio(a), estufado(a)."),
-        new Question("q2",  Domain.EMOCIONAL,     "Uso a comida como uma forma de escape para acalmar minhas emoções."),
-        new Question("q3",  Domain.HIPERFAGICO,   "Geralmente repito o prato nas refeições."),
-<<<<<<< HEAD
-        new Question("q4",  Domain.EMOCIONAL,     "Tenho o hábito constante de petiscar entre as refeições."),
-        new Question("q5",  Domain.HEDONICO,      "Quando começo a comer algo de que gosto, não consigo parar até terminar."),
-=======
-        new Question("q4",  Domain.DESORGANIZADO, "Tenho o hábito constante de petiscar entre as refeições."),
-        new Question("q5",  Domain.COMPULSIVO,    "Quando começo a comer algo de que gosto, não consigo parar até terminar."),
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
-        new Question("q6",  Domain.HIPERFAGICO,   "Costumo comer mais de um prato nas refeições principais."),
-        new Question("q7",  Domain.EMOCIONAL,     "Faço lanches entre as refeições por ansiedade, tédio, solidão, medo, raiva, tristeza e/ou cansaço."),
-        new Question("q8",  Domain.HEDONICO,      "Sinto-me tentado(a) a comer ao ver ou sentir o cheiro de uma comida de que gosto, ou ao passar por um quiosque, padaria, pizzaria ou fast food."),
-        new Question("q9",  Domain.DESORGANIZADO, "Tomo café da manhã todos os dias.", true),
-        new Question("q10", Domain.EMOCIONAL,     "Como nos momentos em que estou entediado(a), ansioso(a), nervoso(a), triste, cansado(a), irritado(a) ou solitário(a)."),
+        new Question("q1", Domain.HIPERFAGICO, "Geralmente como até me sentir cheio(a), estufado(a)."),
+        new Question("q2", Domain.EMOCIONAL, "Uso a comida como uma forma de escape para acalmar minhas emoções."),
+        new Question("q3", Domain.HIPERFAGICO, "Geralmente repito o prato nas refeições."),
+        new Question("q4", Domain.DESORGANIZADO, "Tenho o hábito constante de petiscar entre as refeições."),
+        new Question("q5", Domain.COMPULSIVO, "Quando começo a comer algo de que gosto, não consigo parar até terminar."),
+        new Question("q6", Domain.HIPERFAGICO, "Costumo comer mais de um prato nas refeições principais."),
+        new Question("q7", Domain.EMOCIONAL, "Faço lanches entre as refeições por ansiedade, tédio, solidão, medo, raiva, tristeza e/ou cansaço."),
+        new Question("q8", Domain.HEDONICO, "Sinto-me tentado(a) a comer ao ver ou sentir o cheiro de uma comida de que gosto, ou ao passar por um quiosque, padaria, pizzaria ou fast food."),
+        new Question("q9", Domain.DESORGANIZADO, "Tomo café da manhã todos os dias.", true),
+        new Question("q10", Domain.EMOCIONAL, "Como nos momentos em que estou entediado(a), ansioso(a), nervoso(a), triste, cansado(a), irritado(a) ou solitário(a)."),
         new Question("q11", Domain.DESORGANIZADO, "Pulo algumas — ou pelo menos uma — das refeições principais."),
-        new Question("q12", Domain.HEDONICO,      "Quando me deparo com uma comida de que gosto muito, acabo comendo mesmo sem sentir fome."),
-        new Question("q13", Domain.COMPULSIVO,    "Como uma grande quantidade de comida em pouco tempo."),
-<<<<<<< HEAD
-        new Question("q14", Domain.HEDONICO,      "Quando como algo de que gosto, finalizo toda a porção."),
-=======
-        new Question("q14", Domain.HIPERFAGICO,   "Quando como algo de que gosto, finalizo toda a porção."),
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
-        new Question("q15", Domain.COMPULSIVO,    "Quando como algo de que gosto muito, como muito rápido."),
+        new Question("q12", Domain.HEDONICO, "Quando me deparo com uma comida de que gosto muito, acabo comendo mesmo sem sentir fome."),
+        new Question("q13", Domain.COMPULSIVO, "Como uma grande quantidade de comida em pouco tempo."),
+        new Question("q14", Domain.HIPERFAGICO, "Quando como algo de que gosto, finalizo toda a porção."),
+        new Question("q15", Domain.COMPULSIVO, "Quando como algo de que gosto muito, como muito rápido."),
         new Question("q16", Domain.DESORGANIZADO, "Passo mais de 5 horas por dia sem comer.")
     );
 
@@ -57,8 +48,4 @@ public class QuestionBank {
     public int size() {
         return QUESTIONS.size();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4

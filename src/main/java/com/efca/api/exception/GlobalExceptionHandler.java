@@ -57,8 +57,4 @@ public class GlobalExceptionHandler {
             "details", List.of("Algo deu errado. Tente novamente.")
         ));
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
