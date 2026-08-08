@@ -1,0 +1,23 @@
+package com.efca.api.model;
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
+public enum Domain {
+    HEDONICO("Hedônico"),
+    HIPERFAGICO("Hiperfágico"),
+    EMOCIONAL("Emocional"),
+    COMPULSIVO("Compulsivo"),
+    DESORGANIZADO("Desorganizado");
+
+    private final String label;
+
+    Domain(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+}

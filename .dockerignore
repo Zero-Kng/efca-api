@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+target/
+=======
+﻿target/
+>>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
+.idea/
+*.iml
+.git/
+.gitignore
+<<<<<<< HEAD
+README.md
+=======
+README.md
+>>>>>>> 1cbb7d1d45233d4757ce4dcf49b93b1ca8a135d4
