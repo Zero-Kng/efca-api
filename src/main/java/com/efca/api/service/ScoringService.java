@@ -73,8 +73,9 @@ public class ScoringService {
             }
         }
 
-        if (answers.size() < questionBank.size()) {
-            long missing = questionBank.size() - answers.size();
+        long answeredKnown = answers.keySet().stream().filter(questionBank::exists).count();
+        if (answeredKnown < questionBank.size()) {
+            long missing = questionBank.size() - answeredKnown;
             errors.add(missing + " pergunta(s) não foram respondidas");
         }
 

@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,6 +39,33 @@ public class GlobalExceptionHandler {
             "timestamp", Instant.now().toString(),
             "error", "requisicao_invalida",
             "details", details
+        ));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>> handleUnreadable(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(Map.of(
+            "timestamp", Instant.now().toString(),
+            "error", "requisicao_invalida",
+            "details", List.of("Corpo da requisição ilegível: JSON malformado, tipo incorreto ou campo desconhecido")
+        ));
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Map<String, Object>> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(Map.of(
+            "timestamp", Instant.now().toString(),
+            "error", "metodo_nao_permitido",
+            "details", List.of("Método " + ex.getMethod() + " não é aceito nesta rota")
+        ));
+    }
+
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<Map<String, Object>> handleMediaType(HttpMediaTypeNotSupportedException ex) {
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(Map.of(
+            "timestamp", Instant.now().toString(),
+            "error", "tipo_de_conteudo_nao_suportado",
+            "details", List.of("Envie o corpo como application/json")
         ));
     }
 

@@ -1,5 +1,7 @@
 # efca-api
 
+[![CI](https://github.com/Zero-Kng/efca-api/actions/workflows/ci.yml/badge.svg)](https://github.com/Zero-Kng/efca-api/actions/workflows/ci.yml)
+
 API REST stateless em Java 21 e Spring Boot que aplica e pontua a EFCA (Escala de Fenótipo de Comportamento Alimentar), um questionário de autoavaliação de 16 itens distribuídos em cinco domínios de comportamento alimentar.
 
 A API não persiste nada. Cada requisição de pontuação é independente e nenhuma resposta é gravada em banco ou em disco.
@@ -108,8 +110,11 @@ Toda falha devolve o mesmo formato, com `details` sempre em lista:
 | Status | `error` | Quando ocorre |
 |---|---|---|
 | 400 | `requisicao_invalida` | O corpo não passa na validação estrutural, por exemplo `answers` ausente ou vazio |
+| 400 | `requisicao_invalida` | JSON malformado, valor não numérico ou campo desconhecido no corpo. O conteúdo enviado não é ecoado na resposta |
 | 400 | `respostas_invalidas` | O corpo é estruturalmente válido, mas o conteúdo não é: id inexistente, nota fora de 1 a 5, ou questionário incompleto |
 | 404 | `recurso_nao_encontrado` | Rota inexistente. A resposta lista os endpoints disponíveis |
+| 405 | `metodo_nao_permitido` | Método HTTP não aceito na rota |
+| 415 | `tipo_de_conteudo_nao_suportado` | Corpo enviado com `Content-Type` diferente de `application/json` |
 | 500 | `erro_interno` | Falha não prevista. A causa é registrada no log do servidor e não é devolvida ao cliente |
 
 A validação de conteúdo acumula todos os problemas encontrados antes de responder, em vez de interromper no primeiro. Um cliente que envia um formulário inteiro errado recebe a lista completa em uma única viagem.
@@ -178,18 +183,25 @@ mvn test
 
 ## Testes
 
-`ScoringServiceTest` cobre o cálculo e os três modos de rejeição de entrada:
+A suíte roda a cada push pelo GitHub Actions (`mvn -B verify`).
 
-- média correta quando todos os itens são respondidos
-- rejeição de id de pergunta inexistente
-- rejeição de nota fora do intervalo de 1 a 5
-- rejeição de questionário incompleto
+`ScoringServiceTest` testa a regra de pontuação com JUnit puro, sem subir o Spring:
+
+- item reverso `q9`: 5 vira 1, 1 vira 5, e a inversão não afeta os outros domínios
+- limites da escala: perfil mínimo e máximo em todos os domínios, 1 e 5 aceitos, 0, 6 e extremos de `int` rejeitados
+- pontuação máxima e rótulo de cada domínio, e ordem estável dos domínios na resposta
+- arredondamento da média para uma casa decimal
+- ids desconhecidos, inclusive variação de caixa e espaço, nota nula e questionário incompleto
+- acúmulo de todos os erros em uma única resposta, e id desconhecido sem contar como pergunta respondida
+
+`QuestionBankTest` protege o instrumento: 16 itens com ids únicos, apenas `q9` reverso, quantidade de itens por domínio e lista imutável.
+
+`EfcaApiIntegrationTest` sobe a aplicação em porta aleatória e testa pelo HTTP o contrato de erro (400, 404, 405 e 415), a rejeição de campo desconhecido sem ecoar o valor enviado, o CORS para origem permitida e bloqueada, o `health` disponível e os demais endpoints do Actuator fechados.
 
 ## Limitações conhecidas
 
 - O endpoint público não tem rate limiting. Aceitável na escala atual, mas seria o primeiro item a resolver antes de qualquer divulgação ampla.
 - O limite de `16` entradas em `AnswerRequest` está fixo na anotação de validação, enquanto o número real de perguntas é definido em `QuestionBank`. Se o instrumento mudar de tamanho, os dois pontos precisam ser alterados juntos.
-- Não há pipeline de integração contínua. Os testes existem mas dependem de execução manual.
 - A pontuação é descritiva. A API devolve soma e média por domínio, e não classifica o resultado em faixas nem emite qualquer interpretação clínica.
 
 ## Aviso
